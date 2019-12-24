@@ -3,6 +3,7 @@
 .film{
   .film__banner{
     height: 100vh;
+    min-height: 600px;
     background-size: cover;
     background-position: center top;
     background-repeat: no-repeat;
@@ -25,20 +26,20 @@
         @include positionAbs;
         background: linear-gradient(to bottom, rgba(0, 0, 37, 0) 0%, #000025 100%);
       }
+      .watch__funcs{
+        li:last-of-type{
+          display: none;
+        }
+      }
       .banner__poster{
         position: relative;
         display: inline-block;
         color: #fff;
-        //width: 273px;
-        //height: 410px;
-        //box-shadow: 0 0 8px 0 rgba(0,0,0,.4);
-        //border-radius: 8px;
         img{
-          width: 100%;
           max-width: 100%;
           height: auto;
-          border-radius: 8px;
           display: block;
+          margin-bottom: 20px;
         }
         .fa-play-circle{
           position: absolute;
@@ -55,23 +56,90 @@
             font-size: 70px;
           }
         }
+        .capTitle{
+          font-size: 50px;
+          margin: 0;
+        }
+        .topCap {
+          background-color: #3939b8;
+          color: #fff;
+          padding: 2px 15px;
+          display: inline-block;
+          vertical-align: middle;
+          margin-bottom: 5px;
+          font-size: 13px;
+        }
+        .movieDetail {
+          display: flex;
+          align-items: flex-end;
+          letter-spacing: 0.1em;
+          font-weight: 300;
+          .imdbCont {
+            margin-left: 20px;
+            .imdbVal{
+              position: relative;
+              margin: 10px;
+              &::before{
+                content: '\f005';
+                font-family: "Font Awesome 5 Free";
+                color: #ed0c6e;
+                font-weight: bold;
+                font-size: 12px;
+              }
+            }
+          }
+        }
       }
       .banner__info{
-        position: relative;
-        p, time{
-          color: #fff;
+        flex: none;
+        ul{
+          padding-right: 20px;
+          li::after{
+            left: 100%;
+          }
         }
       }
       .container{
         display: flex;
         justify-content: space-between;
+        align-items: flex-end;
       }
+    }
+  }
+  .film__info{
+    .info-wrap{
+      margin-bottom: 30px;
+      p{
+        margin: 0;
+      }
+      h4{
+        margin: 0 0 10px;
+      }
+    }
+    .MuiBox-root{
+      padding: 15px 0;
     }
   }
   .MuiAppBar-colorPrimary{
     background: none;
     box-shadow: none;
     color: #000;
+  }
+  .film__suggestion{
+    display: flex;
+    margin: 0 -15px;
+    li.react-multi-carousel-item{
+      min-width: 250px;
+    }
+    .films__wrapper{
+      width: 100%;
+    }
+    .react-multiple-carousel__arrow--left{
+      top: 35%;
+    }
+    .react-multiple-carousel__arrow--right{
+      top: 35%;
+    }
   }
 }
 .video__wrapper{

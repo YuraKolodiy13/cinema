@@ -1,0 +1,40 @@
+ul.watch__funcs{
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  li{
+    padding: 10px 10px 10px 45px;
+    color: #fff;
+    position: relative;
+    text-align: left;
+    text-transform: capitalize;
+    cursor: pointer;
+    &::before{
+      content: '\f008';
+      font-family: "Font Awesome 5 Free";
+      font-weight: bold;
+      position: absolute;
+      left: 15px;
+      font-size: 18px;
+    }
+    &:last-of-type::before{
+      content: '\f05a';
+    }
+    &::after{
+      content: "";
+      width: 15px;
+      height: 5px;
+      background-color: #ed0c6e;
+      position: absolute;
+      right: 15px;
+      top: 18px;
+      transition: 0.3s;
+    }
+    &:hover{
+      color: #ed0c6e;
+      &::after{
+        width: 20px;
+      }
+    }
+  }
+}

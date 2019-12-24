@@ -1,10 +1,10 @@
 import React, {useEffect} from 'react'
 import {connect} from "react-redux";
 import {getFilms} from "../../store/actions/films";
-import {Link} from  'react-router-dom'
 import './FilmsPage.scss'
 import Loader from "../../components/Loader/Loader";
 import Tabs from "../../components/Tabs/Tabs";
+import FilmItem from "../../components/FilmItem/FilmItem";
 
 const FilmsPage = props => {
 
@@ -22,15 +22,7 @@ const FilmsPage = props => {
       <div className="container">
         <div className="films__items">
           {props.films.map((item, key) => props.currentCategory === 'All' || item.genre === props.currentCategory
-            ? <div className='films__item' key={key}>
-              <div className="films__img">
-                <img src={item.poster_image} alt=""/>
-              </div>
-              <div className="films__info">
-                <p>{item.name}</p>
-              </div>
-              <Link to={`film/${item.id}`} />
-            </div>
+            ? <FilmItem item={item} key={key}/>
             : null
           )}
         </div>

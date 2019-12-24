@@ -1,0 +1,76 @@
+@import '../../assets/styles/mixins';
+
+.films__wrapper{
+  width: 25%;
+  text-align: center;
+  padding: 0 15px;
+  box-sizing: border-box;
+  margin-bottom: 30px;
+  .films__item{
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    transition: .3s;
+    overflow: hidden;
+    .films__img{
+      position: relative;
+      img{
+        max-width: 100%;
+        min-height: 327px;
+        height: auto;
+        display: block;
+      }
+    }
+    .films__info{
+      padding: 10px;
+      p{
+        margin: 0;
+        text-transform: capitalize;
+        color: #fff;
+      }
+    }
+    .films__link{
+      @include positionAbs;
+      z-index: 2;
+    }
+    .films__overlay{
+      @include positionAbs;
+      background-color: #2f3096e3;
+      top: -100%;
+      height: 100%;
+      transition: .3s;
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      ul{
+        margin-top: auto;
+        position: relative;
+        z-index: 3;
+        li[data-watch='trailer']{
+          background-color: #000025;
+        }
+        li[data-watch='film']{
+          background-color: #12125b;
+        }
+        li:last-of-type{
+          background-color: #2f3096;
+          padding: 0;
+          a{
+            color: #ed0c6e;
+            text-decoration: none;
+            padding: 10px 10px 10px 45px;
+            display: block;
+          }
+          &::before{
+            top: 10px;
+          }
+        }
+      }
+    }
+    &:hover{
+      .films__overlay{
+        top: 0;
+      }
+    }
+  }
+}

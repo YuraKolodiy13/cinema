@@ -1,0 +1,104 @@
+.auth__wrapper{
+  background-color: #fff;
+  flex-grow: 1;
+  display: flex;
+  align-items: center;
+}
+.auth{
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin: 50px auto;
+  width: 100%;
+  .form__field{
+    position: relative;
+    margin: 0 0 40px;
+    .MuiFormControl-root{
+      margin-bottom: 0;
+    }
+    & > p{
+      position: absolute;
+      color: red;
+      font-size: 12px;
+      margin-top: 3px;
+    }
+    &.form__password{
+      .form__icon{
+        position: absolute;
+        right: 10px;
+        top: 10px;
+        height: 40px;
+        width: 40px;
+        z-index: 10;
+        cursor: pointer;
+        &::after{
+          content: '\f070';
+          font-family: "Font Awesome 5 Free";
+          font-size: 20px;
+          font-weight: bold;
+          color: #747474;
+          position: absolute;
+          left: 50%;
+          top: 50%;
+          transform: translate(-50%, -50%);
+        }
+      }
+      &.show{
+        .form__icon{
+          &::after{
+            content: '\f06e';
+          }
+        }
+      }
+    }
+  }
+  .MuiFormControl-root{
+    width: 100%;
+  }
+}
+.pageTopTitleBar {
+  background-color: #000025;
+  padding-top: 80px;
+  .container{
+    display: flex;
+    .pageTopTitleCont {
+      padding-top: 20px;
+      padding-bottom: 20px;
+      border-top: 1px solid #7a7aa0;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      h1{
+        margin: 0;
+        color: #fff;
+        text-transform: uppercase;
+        font-weight: normal;
+        font-size: 24px;
+      }
+      ul{
+        flex: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        list-style: none;
+        li{
+          position: relative;
+          color: #fff;
+          &:not(:first-of-type)::before{
+            display: inline-block;
+            padding-right: .5rem;
+            padding-left: .5rem;
+            color: #868e96;
+            content: "/";
+          }
+          a {
+            color: #ed0c6e;
+            font-weight: 500;
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+}

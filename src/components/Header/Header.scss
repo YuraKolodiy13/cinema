@@ -5,4 +5,50 @@
   z-index: 10;
   background: linear-gradient(to bottom, #000025 0%, rgba(0, 0, 37, 0) 100%);
   padding: 20px 0;
+  transition: .3s;
+  &.fixed{
+    position: fixed;
+    z-index: 20;
+    background: #000025;
+    h1{
+      font-size: 16px;
+    }
+  }
+  .header__container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    h1{
+      margin: 0;
+      a{
+        text-decoration: none;
+        transition: .3s;
+        color: #fff;
+        &.active,
+        &:hover{
+          color: #ed0c6e;
+        }
+      }
+    }
+    ul{
+      display: flex;
+      justify-content: space-between;
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      li{
+        margin-left: 10px;
+        a, span{
+          color: #fff;
+          text-decoration: none;
+          transition: .3s;
+          cursor: pointer;
+          &.active,
+          &:hover{
+            color: #ed0c6e;
+          }
+        }
+      }
+    }
+  }
 }
