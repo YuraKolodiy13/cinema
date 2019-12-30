@@ -12,6 +12,8 @@ import Watch from "../../components/Watch/Watch";
 import FilmItem from "../../components/FilmItem/FilmItem";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import Rater from 'react-rater'
+
 
 const TabPanel = props => {
   const { children, value, index, ...other } = props;
@@ -36,7 +38,6 @@ const SingleFilmPage = props => {
   const [categoryActive, changeCategoryActive] = useState(props.match.params.id);
 
   if(categoryActive !== props.match.params.id){
-    props.getSingleFilm(props.match.params.id);
     changeCategoryActive(props.match.params.id);
   }
 
@@ -45,10 +46,16 @@ const SingleFilmPage = props => {
   };
 
   useEffect(() => {
+    console.log(props, 543)
     props.getSingleFilm(categoryActive);
     props.getReviews(props.match.params.id);
     props.getFilms();
   }, []);
+
+  useEffect(() => {
+    props.getSingleFilm(props.match.params.id);
+    props.getReviews(props.match.params.id);
+  }, [categoryActive])
 
   const responsive = {
     desktop: {
@@ -70,7 +77,7 @@ const SingleFilmPage = props => {
   }
 
   return(
-    <div className='film' style={{backgroundColor: props.film.background_color}}>
+    <div className='film'>
       <div className="film__banner banner" style={{backgroundImage: `url(${props.film.background_image})`}}>
         <div className="banner__wrapper">
           <div className="container">
@@ -87,7 +94,7 @@ const SingleFilmPage = props => {
               </div>
             </div>
             <div className="banner__info">
-              <Watch film={props.film}/>
+              <Watch film={props.film} fav={props.user && props.user.is_favourite && Object.values(props.user.is_favourite).find(fav => fav === props.film.id)}/>
             </div>
           </div>
         </div>
@@ -114,17 +121,19 @@ const SingleFilmPage = props => {
           </div>
         </TabPanel>
         <TabPanel value={value} index={1}>
-          {props.reviews.map((item, key) =>
+          {props.reviews.length
+            ? props.reviews.map((item, key) =>
             <div key={key}>
               <div className="quote">
-                <p>{item.comment}</p>
-                <p className="review__author">{item.user.name}: <time className="review__date">{new Date(item.date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'})}</time></p>
-              </div>
-              <div className="rating">
-                <p>{item.rating}</p>
+                <div className="quote__header">
+                  <p className="review__author">{item.user.name} <time className="review__date">{new Date(item.date).toLocaleDateString('en-US', {month: 'long', year: 'numeric'})}</time></p>
+                  <Rater rating={item.rating} total={5} interactive={false} />
+                </div>
+                <blockquote>{item.comment}</blockquote>
               </div>
             </div>
-          )}
+          ) : <p>No reviews</p>
+          }
         </TabPanel>
       </div>
       <div className="film__suggestionWrap container">
@@ -139,7 +148,9 @@ const SingleFilmPage = props => {
             deviceType='desktop'
           >
             {props.films.map((item, key) => item.genre === props.film.genre && item.id !== props.film.id
-              ? <FilmItem item={item} key={key}/>
+              ? props.user && Object.values(props.user.is_favourite).find(fav => fav === item.id)
+                ? <FilmItem item={item} key={key} fav={true}/>
+                : <FilmItem item={item} key={key}/>
               : null
             )}
           </Carousel>
@@ -153,6 +164,7 @@ const SingleFilmPage = props => {
 const mapsStateToProps = state => {
   return{
     film: state.films.film,
+    user: state.auth.user,
     films: state.films.films,
     reviews: state.films.reviews,
     loading: state.films.loading

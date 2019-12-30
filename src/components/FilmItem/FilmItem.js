@@ -10,7 +10,7 @@ const FilmItem = props => {
         <div className="films__img">
           <img src={props.item.poster_image} alt=""/>
           <div className="films__overlay">
-            <Watch film={props.item}/>
+            <Watch film={props.item} fav={props.fav}/>
           </div>
         </div>
         <div className="films__info">

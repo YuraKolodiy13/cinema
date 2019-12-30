@@ -3,7 +3,7 @@ import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 
 import '../index.scss'
-import {clearError, auth} from "../../../store/actions/auth";
+import {auth} from "../../../store/actions/auth";
 import {connect} from "react-redux";
 import {Helmet} from "react-helmet";
 import {Link} from  'react-router-dom'
@@ -162,8 +162,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = {
-  auth: auth,
-  clearError: clearError
+  auth: auth
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Register)

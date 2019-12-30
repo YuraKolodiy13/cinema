@@ -6,4 +6,42 @@ body{
     width: 100%;
     margin: 0 auto;
   }
+  .trigger__wrap{
+    .trigger{
+      .MuiFormLabel-root{
+        &.Mui-focused{
+          color: #3f51b5;
+        }
+      }
+      .MuiInputBase-root{
+        &.Mui-error{
+          color: rgba(0, 0, 0, 0.54);
+        }
+        &.Mui-focused{
+          .MuiOutlinedInput-notchedOutline{
+            border-color: #3f51b5;
+          }
+        }
+      }
+      .MuiFormHelperText-root{
+        display: none;
+      }
+    }
+  }
+  .MuiFormControl-root {
+    margin: 0 0 40px;
+    position: relative;
+    .MuiFormHelperText-root{
+      position: absolute;
+      top: 100%;
+      margin-left: 0;
+      &::before{
+        content: '\f071';
+        font-family: "Font Awesome 5 Free";
+        display: inline-block;
+        padding-right: 3px;
+        font-weight:700;
+      }
+    }
+  }
 }

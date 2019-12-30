@@ -22,7 +22,9 @@ const FilmsPage = props => {
       <div className="container">
         <div className="films__items">
           {props.films.map((item, key) => props.currentCategory === 'All' || item.genre === props.currentCategory
-            ? <FilmItem item={item} key={key}/>
+            ? props.user && props.user.is_favourite && Object.values(props.user.is_favourite).find(fav => fav === item.id)
+              ? <FilmItem item={item} key={key} fav={true}/>
+              : <FilmItem item={item} key={key}/>
             : null
           )}
         </div>
@@ -34,6 +36,7 @@ const FilmsPage = props => {
 const mapsStateToProps = state => {
   return{
     films: state.films.films,
+    user: state.auth.user,
     loading: state.films.loading,
     currentCategory: state.films.currentCategory
   }

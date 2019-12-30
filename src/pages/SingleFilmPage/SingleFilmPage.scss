@@ -1,6 +1,7 @@
 @import '../../assets/styles/mixins';
 
 .film{
+  background-color: #fff;
   .film__banner{
     height: 100vh;
     min-height: 600px;
@@ -27,6 +28,7 @@
         background: linear-gradient(to bottom, rgba(0, 0, 37, 0) 0%, #000025 100%);
       }
       .watch__funcs{
+        min-width: 200px;
         li:last-of-type{
           display: none;
         }
@@ -118,6 +120,40 @@
     }
     .MuiBox-root{
       padding: 15px 0;
+    }
+    .quote{
+      .quote__header{
+        display: flex;
+        justify-content: space-between;
+        .react-rater{
+          display: flex;
+          div{
+            color: #ccc;
+            font-size: 24px;
+            .is-active{
+              color: #ed0c6e;
+            }
+          }
+
+        }
+        .review__date{
+          font-size: 12px;
+        }
+      }
+      blockquote{
+        position: relative;
+        margin-left: 0;
+        padding-left: 30px;
+        &::before{
+          content: '';
+          position: absolute;
+          left: 0;
+          top: 0;
+          bottom: 0;
+          width: 5px;
+          background-color: rgba(#000, .5);
+        }
+      }
     }
   }
   .MuiAppBar-colorPrimary{

@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {CLEAR_ERROR, LOGIN_ERROR, LOGOUT_USER, SET_USER} from "./actionType";
+import {ADD_TO_MY_LIST, LOGIN_ERROR, LOGOUT_USER, REMOVE_FROM_MY_LIST, SET_USER} from "./actionType";
 
 export const auth = (email, password, isLogin, name) => {
   return async dispatch => {
@@ -22,11 +22,15 @@ export const auth = (email, password, isLogin, name) => {
         name: name,
         email: data.email,
         token: data.idToken,
-        id: data.localId
+        id: data.localId,
+        is_favourite: []
       };
       if(isLogin){
         let res = await axios.get('https://cinema-a31fc.firebaseio.com/users.json');
         user = Object.values(res.data).find(item => item.id === data.localId);
+        if(user.is_favourite){
+          user.is_favourite = Object.values(user.is_favourite)
+        }
       }
       if(!isLogin){
         try{
@@ -86,8 +90,34 @@ export const logout = () => {
   }
 };
 
-export const clearError = () => {
-  return{
-    type: CLEAR_ERROR
-  }
+export const addToMYList = item => async dispatch => {
+  let res = await axios.get('https://cinema-a31fc.firebaseio.com/users.json');
+  let currentUser = JSON.parse(localStorage.getItem('user'));
+  let userId = Object.entries(res.data).find(item => item[1].id === currentUser.id);
+  await axios.post(`https://cinema-a31fc.firebaseio.com/users/${userId[0]}/is_favourite.json`, item);
+  currentUser.is_favourite = currentUser.is_favourite ? [...currentUser.is_favourite, item] : [item];
+  localStorage.setItem('user', JSON.stringify(currentUser));
+  dispatch({
+    type: ADD_TO_MY_LIST,
+    payload: item
+  })
+};
+
+export const removeFromMYList = item => async dispatch => {
+  console.log(543)
+  let res = await axios.get('https://cinema-a31fc.firebaseio.com/users.json');
+  let currentUser = JSON.parse(localStorage.getItem('user'));
+  let userId = Object.entries(res.data).find(item => item[1].id === currentUser.id);
+  let list = await axios.get(`https://cinema-a31fc.firebaseio.com/users/${userId[0]}/is_favourite.json`);
+  console.log(list, 111);
+  let currentList = Object.entries(list.data).find(l => l[1] === item);
+  console.log(currentList, 222);
+  await axios.delete(`https://cinema-a31fc.firebaseio.com/users/${userId[0]}/is_favourite/${currentList[0]}.json`, item);
+  let index = currentUser.is_favourite.findIndex(i => i === item);
+  currentUser.is_favourite.splice(index, 1);
+  localStorage.setItem('user', JSON.stringify(currentUser));
+  dispatch({
+    type: REMOVE_FROM_MY_LIST,
+    payload: index
+  })
 };

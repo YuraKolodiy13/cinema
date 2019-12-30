@@ -36,5 +36,17 @@ ul.watch__funcs{
         width: 20px;
       }
     }
+    &.bookmark{
+      &::before{
+        content: '\f02e';
+        font-weight: normal;
+      }
+      &:hover::before{
+        font-weight: bold;
+      }
+      &.remove::before{
+        font-weight: bold;
+      }
+    }
   }
 }

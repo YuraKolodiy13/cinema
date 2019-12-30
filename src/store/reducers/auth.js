@@ -1,4 +1,4 @@
-import {CLEAR_ERROR, LOGIN_ERROR, LOGOUT_USER, SET_USER} from "../actions/actionType";
+import {ADD_TO_MY_LIST, LOGIN_ERROR, LOGOUT_USER, REMOVE_FROM_MY_LIST, SET_USER} from "../actions/actionType";
 
 const initialState = {
   user: null,
@@ -23,11 +23,19 @@ const authReducer = (state = initialState, action) => {
         ...state,
         error: action.error
       };
-    case CLEAR_ERROR:
+
+    case ADD_TO_MY_LIST:
       return {
         ...state,
-        error: false
+        user: {...state.user, is_favourite: state.user.is_favourite ? [...state.user.is_favourite ,action.payload] : [action.payload]}
       };
+    case REMOVE_FROM_MY_LIST:
+      state.user.is_favourite.splice(action.payload, 1);
+      return {
+        ...state,
+        user: {...state.user}
+      };
+
 
     default:
       return state

@@ -40,7 +40,6 @@ export const getReviews = id => async dispatch => {
 };
 
 export const changeCurrentCategory = currentCategory => {
-  console.log(currentCategory)
   return{
     type: CHANGE_CURRENT_CATEGORY,
     payload: currentCategory

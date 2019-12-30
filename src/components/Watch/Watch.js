@@ -4,6 +4,8 @@ import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
 import './Watch.scss'
 import {Link} from  'react-router-dom'
+import {connect} from 'react-redux'
+import {addToMYList, removeFromMYList} from "../../store/actions/auth";
 
 const Watch = props => {
 
@@ -25,6 +27,12 @@ const Watch = props => {
   return(
     <Fragment>
       <ul className='watch__funcs'>
+        {props.user
+        ? props.fav
+            ? <li className='bookmark remove' onClick={() => props.removeFromMYList(props.film.id)}>Remove from list</li>
+            : <li className='bookmark' onClick={() => props.addToMYList(props.film.id)}>Add to my list</li>
+        : null
+        }
         <li onClick={handleOpen} data-watch="trailer">watch trailer</li>
         <li onClick={handleOpen} data-watch="film">watch film</li>
         <li><Link to={`/film/${props.film.id}`}>More info</Link></li>
@@ -52,6 +60,17 @@ const Watch = props => {
       </Modal>
     </Fragment>
   )
+};
+
+const mapStateToProps = state => {
+  return{
+    user: state.auth.user
+  }
 }
 
-export default Watch
+const mapDispatchToProps = {
+  addToMYList: addToMYList,
+  removeFromMYList: removeFromMYList,
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Watch)

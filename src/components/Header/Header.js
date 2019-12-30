@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import './Header.scss'
 import {NavLink} from  'react-router-dom'
 import {connect} from 'react-redux'
@@ -6,6 +6,7 @@ import {logout} from "../../store/actions/auth";
 
 
 const Header = props => {
+
   return(
     <div className='header'>
       <div className="header__container container">
@@ -15,7 +16,7 @@ const Header = props => {
         {props.user
           ? <ul>
             <li>
-              <NavLink to={`/author/${props.user.id}`}>{props.user.name}</NavLink>
+              <NavLink to={`/profile/${props.user.id}`}>{props.user.name}</NavLink>
             </li>
             <li>
               <span onClick={props.logout}>Logout</span>

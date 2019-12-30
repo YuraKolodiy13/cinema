@@ -10,6 +10,7 @@ import Login from "../../pages/Auth/Login/Login";
 import Register from "../../pages/Auth/Register/Register";
 import {connect} from "react-redux";
 import {autoLogin} from "../../store/actions/auth";
+import Profile from "../../pages/Profile/Profile";
 
 const App = props => {
 
@@ -32,7 +33,8 @@ const App = props => {
       <Header/>
       <Switch>
         <Route path='/' component={FilmsPage} exact/>
-        <Route path='/film/:id' component={SingleFilmPage} exact/>
+        <Route path='/film/:id' component={SingleFilmPage} />
+        <Route path='/profile/:id' component={Profile} />
         <Route path='/login' component={Login}/>
         <Route path='/register' component={Register}/>
       </Switch>
